@@ -56,8 +56,8 @@ CREATE INDEX IF NOT EXISTS idx_messages_company ON messages(company_id);
 
 INSERT INTO users (email, password_hash, role)
 VALUES
-  ('alexey@3dkonstruktiv.ru', '$2b$10$test', 'admin'),
-  ('marina@3dkonstruktiv.ru', '$2b$10$test', 'viewer')
+  ('alexey@3dkonstruktiv.ru', '$2a$10$cHiG.V/KrjHUyDVVqnbmW.x.JGX2VyDhV5nZvmA8.8bQQPn1ha8ae', 'admin'),
+  ('marina@3dkonstruktiv.ru', '$2a$10$cHiG.V/KrjHUyDVVqnbmW.x.JGX2VyDhV5nZvmA8.8bQQPn1ha8ae', 'viewer')
 ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO companies (name, city, why_suitable, website, priority, status)
