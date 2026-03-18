@@ -1,7 +1,4 @@
-CREATE DATABASE gip_pilot;
-\c gip_pilot;
-
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
   password_hash VARCHAR(255) NOT NULL,
@@ -9,7 +6,7 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE companies (
+CREATE TABLE IF NOT EXISTS companies (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
   city VARCHAR(100),
@@ -21,7 +18,7 @@ CREATE TABLE companies (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE radar_objects (
+CREATE TABLE IF NOT EXISTS radar_objects (
   id SERIAL PRIMARY KEY,
   object_name VARCHAR(255) NOT NULL,
   city VARCHAR(100),
@@ -34,7 +31,7 @@ CREATE TABLE radar_objects (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE gip_routes (
+CREATE TABLE IF NOT EXISTS gip_routes (
   id SERIAL PRIMARY KEY,
   company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
   lpr_role VARCHAR(100),
@@ -44,7 +41,7 @@ CREATE TABLE gip_routes (
   created_at TIMESTAMP DEFAULT NOW()
 );
 
-CREATE TABLE messages (
+CREATE TABLE IF NOT EXISTS messages (
   id SERIAL PRIMARY KEY,
   company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
   type VARCHAR(50),
@@ -54,16 +51,18 @@ CREATE TABLE messages (
   status VARCHAR(50) DEFAULT 'draft'
 );
 
-CREATE INDEX idx_companies_priority ON companies(priority);
-CREATE INDEX idx_messages_company ON messages(company_id);
+CREATE INDEX IF NOT EXISTS idx_companies_priority ON companies(priority);
+CREATE INDEX IF NOT EXISTS idx_messages_company ON messages(company_id);
 
 INSERT INTO users (email, password_hash, role)
 VALUES
   ('alexey@3dkonstruktiv.ru', '$2b$10$test', 'admin'),
-  ('marina@3dkonstruktiv.ru', '$2b$10$test', 'viewer');
+  ('marina@3dkonstruktiv.ru', '$2b$10$test', 'viewer')
+ON CONFLICT (email) DO NOTHING;
 
 INSERT INTO companies (name, city, why_suitable, website, priority, status)
 VALUES
   ('STONE', 'Москва', 'Офисный рынок, STONE Towers', 'https://stone.ru', 'high', 'new'),
   ('Галс-Девелопмент', 'Москва/СПб', 'Группа ВТБ, МФК', 'https://gals.ru', 'high', 'new'),
-  ('MR Group', 'Москва', 'Топ-девелопер БЦ', 'https://mr-group.ru', 'high', 'new');
+  ('MR Group', 'Москва', 'Топ-девелопер БЦ', 'https://mr-group.ru', 'high', 'new')
+ON CONFLICT DO NOTHING;
