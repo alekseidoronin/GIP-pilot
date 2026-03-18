@@ -1,5 +1,6 @@
 import { DashboardTabs } from "../../components/DashboardTabs";
 import { DataTable } from "../../components/DataTable";
+import { AddCompanyButton } from "../../components/AddCompanyButton";
 import { Company, getCompanies } from "../../lib/api";
 
 const demoCompanies: Company[] = [
@@ -50,9 +51,9 @@ export default async function CompaniesPage() {
             <option value="active">active</option>
           </select>
           <button>Поиск</button>
+          <AddCompanyButton />
         </div>
         <div className="toolbar">
-          <button>Добавить</button>
           <button>К ГИПам</button>
           <button>Статистика</button>
         </div>

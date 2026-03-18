@@ -1,6 +1,10 @@
 import { ButtonHTMLAttributes } from "react";
 
-export function Button(props: ButtonHTMLAttributes<HTMLButtonElement>) {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  icon?: "plus";
+};
+
+export function Button({ icon, children, ...props }: ButtonProps) {
   return (
     <button
       {...props}
@@ -9,8 +13,14 @@ export function Button(props: ButtonHTMLAttributes<HTMLButtonElement>) {
         background: "#ffffff",
         borderRadius: 8,
         padding: "8px 12px",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
         cursor: "pointer"
       }}
-    />
+    >
+      {icon === "plus" ? <span aria-hidden="true">➕</span> : null}
+      {children}
+    </button>
   );
 }
