@@ -635,3 +635,27 @@ text
 **Тестовые данные**: STONE, Галс, MR Group.
 
 Готово к `npm run dev` и `./deploy.sh`.
+
+
+**Раздел 14. НАСТРОЙКА SSH ДЛЯ АВТОМАТИЧЕСКОГО ДОСТУПА ИЗ CURSOR {#ssh}**
+
+**Зайди на сервер:** ssh debian@144.217.12.20
+В терминале НА СЕРВЕРЕ (debian@vps-39eb0606:~$) выполните одну строку (скопируй целиком, вставьте, Enter):
+mkdir -p ~/.ssh && echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPxwtYdkgwYjyQYLbu7sV7j1b/K4BUXWg9iKYqcTT5F5 alekseidoronin@mac-vps' >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys && echo Done.
+
+**Проверь:**
+tail ~/.ssh/authorized_keys
+Должно показать добавленный ключ.
+
+**После настройки (для деплоя GIP-pilot)**
+Ты можешь выполнять команды:
+ssh debian@144.217.12.20 'cd /path/to/GIP-pilot && git pull && docker-compose up -d --build && sudo nginx -t && sudo systemctl reload nginx'
+
+Путь проекта на сервере
+/opt/GIP-pilot  # Рекомендую создать здесь
+
+**Дальше:**
+mkdir -p /opt/GIP-pilot && cd /opt/GIP-pilot
+git clone https://github.com/alekseidoronin/GIP-pilot.git .
+./deploy.sh
+
