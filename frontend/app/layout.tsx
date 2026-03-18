@@ -5,9 +5,9 @@ export const metadata: Metadata = {
   title: "Пилот ГИПов",
   description: "Dashboard для поиска и коммуникации с ГИПами",
   icons: {
-    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
-    shortcut: "/icon.svg",
-    apple: "/icon.svg"
+    icon: [{ url: "/favicon-gip.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon-gip.svg",
+    apple: "/favicon-gip.svg"
   }
 };
 
