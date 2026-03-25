@@ -1,6 +1,5 @@
 import { DashboardTabs } from "../../components/DashboardTabs";
-import { DataTable } from "../../components/DataTable";
-import { AddCompanyButton } from "../../components/AddCompanyButton";
+import { CompaniesClient } from "../../components/CompaniesClient";
 import { Company, getCompanies } from "../../lib/api";
 
 const demoCompanies: Company[] = [
@@ -38,38 +37,7 @@ export default async function CompaniesPage() {
     <main className="container">
       <h1>Список компаний</h1>
       <DashboardTabs />
-      <section className="card">
-        <div className="toolbar">
-          <select defaultValue="">
-            <option value="">Приоритет</option>
-            <option value="high">high</option>
-            <option value="medium">medium</option>
-          </select>
-          <select defaultValue="">
-            <option value="">Статус</option>
-            <option value="new">new</option>
-            <option value="active">active</option>
-          </select>
-          <button>Поиск</button>
-          <AddCompanyButton />
-        </div>
-        <div className="toolbar">
-          <button>К ГИПам</button>
-          <button>Статистика</button>
-        </div>
-        <DataTable
-          columns={[
-            { key: "name", label: "Компания" },
-            { key: "city", label: "Город" },
-            { key: "why_suitable", label: "Почему подходит" },
-            { key: "website", label: "Сайт" },
-            { key: "priority", label: "Приоритет" },
-            { key: "status", label: "Статус" },
-            { key: "touches", label: "Касаний" }
-          ]}
-          rows={rows as unknown as Record<string, unknown>[]}
-        />
-      </section>
+      <CompaniesClient initialRows={rows} />
     </main>
   );
 }
